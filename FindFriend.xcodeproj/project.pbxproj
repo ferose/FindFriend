@@ -13,6 +13,7 @@
 		E408E6AF1CCD2E360053608C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E408E6AD1CCD2E360053608C /* Main.storyboard */; };
 		E408E6B11CCD2E360053608C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E408E6B01CCD2E360053608C /* Assets.xcassets */; };
 		E408E6B41CCD2E360053608C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E408E6B21CCD2E360053608C /* LaunchScreen.storyboard */; };
+		E408E6CA1CCD335D0053608C /* BluetoothManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E408E6C51CCD335D0053608C /* BluetoothManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,8 @@
 		E408E6B01CCD2E360053608C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E408E6B31CCD2E360053608C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E408E6B51CCD2E360053608C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E408E6C41CCD335D0053608C /* BluetoothManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothManager.h; sourceTree = "<group>"; };
+		E408E6C51CCD335D0053608C /* BluetoothManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +65,8 @@
 				E408E6A81CCD2E360053608C /* AppDelegate.m */,
 				E408E6AA1CCD2E360053608C /* ViewController.h */,
 				E408E6AB1CCD2E360053608C /* ViewController.m */,
+				E408E6C41CCD335D0053608C /* BluetoothManager.h */,
+				E408E6C51CCD335D0053608C /* BluetoothManager.m */,
 				E408E6AD1CCD2E360053608C /* Main.storyboard */,
 				E408E6B01CCD2E360053608C /* Assets.xcassets */,
 				E408E6B21CCD2E360053608C /* LaunchScreen.storyboard */,
@@ -151,6 +156,7 @@
 			files = (
 				E408E6AC1CCD2E360053608C /* ViewController.m in Sources */,
 				E408E6A91CCD2E360053608C /* AppDelegate.m in Sources */,
+				E408E6CA1CCD335D0053608C /* BluetoothManager.m in Sources */,
 				E408E6A61CCD2E360053608C /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,6 +306,7 @@
 				E408E6BA1CCD2E360053608C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
