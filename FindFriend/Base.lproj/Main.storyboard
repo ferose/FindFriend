@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -33,27 +34,106 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uF7-Q6-t5c">
+                                <rect key="frame" x="20" y="20" width="560" height="560"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="uF7-Q6-t5c" secondAttribute="height" multiplier="1:1" id="I6g-g8-KRI"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OV6-4S-fRs">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <subviews>
+                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XU0-hM-uQe">
+                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <color key="tintColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="arrows"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="top" secondItem="XU0-hM-uQe" secondAttribute="bottom" constant="3" id="NCK-4F-kCg"/>
+                                    <constraint firstItem="XU0-hM-uQe" firstAttribute="centerX" secondItem="OV6-4S-fRs" secondAttribute="centerX" id="woE-FO-Hqq"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="XU0-hM-uQe"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <exclude reference="NCK-4F-kCg"/>
+                                        <exclude reference="woE-FO-Hqq"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="XU0-hM-uQe"/>
+                                    </mask>
+                                    <mask key="constraints">
+                                        <include reference="NCK-4F-kCg"/>
+                                        <include reference="woE-FO-Hqq"/>
+                                    </mask>
+                                </variation>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30g-7C-wdg">
                                 <rect key="frame" x="284.5" y="270" width="31" height="60"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="uF7-Q6-t5c" firstAttribute="top" secondItem="OV6-4S-fRs" secondAttribute="top" id="7o0-HB-8Kf"/>
+                            <constraint firstItem="uF7-Q6-t5c" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="SYk-nl-g6S">
+                                <variation key="widthClass=compact" constant="40"/>
+                            </constraint>
                             <constraint firstItem="30g-7C-wdg" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="VfT-dB-fqx"/>
+                            <constraint firstItem="uF7-Q6-t5c" firstAttribute="bottom" secondItem="OV6-4S-fRs" secondAttribute="bottom" id="XfM-cm-OZo"/>
+                            <constraint firstItem="uF7-Q6-t5c" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="b6X-KM-iad"/>
+                            <constraint firstItem="uF7-Q6-t5c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bRp-LO-hm7"/>
+                            <constraint firstItem="uF7-Q6-t5c" firstAttribute="trailing" secondItem="OV6-4S-fRs" secondAttribute="trailing" id="fwM-wz-SHd"/>
+                            <constraint firstItem="uF7-Q6-t5c" firstAttribute="leading" secondItem="OV6-4S-fRs" secondAttribute="leading" id="sw6-z7-QWb"/>
+                            <constraint firstAttribute="trailing" secondItem="uF7-Q6-t5c" secondAttribute="trailing" constant="20" id="tQp-ik-awf">
+                                <variation key="widthClass=compact" constant="40"/>
+                            </constraint>
                             <constraint firstItem="30g-7C-wdg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="w2Q-z8-0ns"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="OV6-4S-fRs"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="7o0-HB-8Kf"/>
+                                <exclude reference="XfM-cm-OZo"/>
+                                <exclude reference="fwM-wz-SHd"/>
+                                <exclude reference="sw6-z7-QWb"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="OV6-4S-fRs"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="7o0-HB-8Kf"/>
+                                <include reference="XfM-cm-OZo"/>
+                                <include reference="fwM-wz-SHd"/>
+                                <include reference="sw6-z7-QWb"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Find My Friend" id="0r1-hQ-PH7"/>
                     <connections>
+                        <outlet property="arrowView" destination="OV6-4S-fRs" id="YHL-74-4JJ"/>
+                        <outlet property="circularView" destination="uF7-Q6-t5c" id="0J4-Ce-PWO"/>
                         <outlet property="signalStrengthLabel" destination="30g-7C-wdg" id="cCJ-ro-Esc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-125" y="256"/>
+            <point key="canvasLocation" x="-126" y="256"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="arrows" width="32" height="32"/>
+    </resources>
 </document>

@@ -16,6 +16,7 @@
 @property (nonatomic) CBPeripheralManager *peripheralManager;
 
 @property (nonatomic) CBUUID *serviceUUID;;
+@property (nonatomic) CBUUID *locationCharacteristicUUID;
 
 @end
 
@@ -44,6 +45,8 @@
 - (void) commonInit
 {
     self.serviceUUID = [CBUUID UUIDWithString:@"3CF044DF-24D7-4165-8E94-F9C9788A040D"];
+    self.locationCharacteristicUUID = [CBUUID UUIDWithString:@"0316515B-FC60-4B0D-99BE-F72B243232FA"];
+
     [self setupCentral];
     [self setupPeripheral];
 }
@@ -57,7 +60,6 @@
 - (void) setupPeripheral
 {
     self.peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self queue:nil options:nil];
-
 }
 
 #pragma mark CBCentralManagerDelegate
@@ -73,7 +75,6 @@
     
     // ... so start scanning
     [self scan];
-    
 }
 
 
@@ -103,6 +104,20 @@
     NSLog(@"Failed to connect to %@. (%@)", peripheral, [error localizedDescription]);
 }
 
+- (NSData *)dataFromDictionary:(NSDictionary *)dictionary
+{
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionary
+                                                       options:0
+                                                         error:nil];
+    return jsonData;
+}
+
+- (NSDictionary *)dictionaryFromData:(NSData *)data
+{
+    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    return jsonDict;
+}
+
 #pragma mark CBPeripheralManagerDelegate
 
 /** Required protocol method.  A full app should take care of all the possible states,
@@ -116,6 +131,15 @@
     }
     
     CBMutableService *service = [[CBMutableService alloc] initWithType:self.serviceUUID primary:YES];
+    
+    NSData *location = [self dataFromDictionary: @{@"lat": @(0), @"lon": @(0)}];
+    
+    CBMutableCharacteristic *locationCharacteristics =
+    [[CBMutableCharacteristic alloc] initWithType:self.locationCharacteristicUUID
+                                       properties:CBCharacteristicPropertyRead
+                                            value:location
+                                      permissions:CBAttributePermissionsReadable];
+    service.characteristics = @[locationCharacteristics];
     [self.peripheralManager addService:service];
 }
 
@@ -127,6 +151,6 @@
         NSLog(@"Error publishing service: %@", [error localizedDescription]);
         return;
     }
-    [peripheral startAdvertising:@{ CBAdvertisementDataServiceUUIDsKey : @[self.serviceUUID]}];
+    [peripheral startAdvertising:@{CBAdvertisementDataServiceUUIDsKey : @[self.serviceUUID]}];
 }
 @end
