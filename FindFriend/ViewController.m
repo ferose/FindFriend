@@ -42,6 +42,8 @@
     self.locationManager.delegate = self;
     [self.locationManager startUpdatingHeading];
     [self.locationManager startUpdatingLocation];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
