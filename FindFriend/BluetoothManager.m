@@ -15,9 +15,11 @@
 @property (nonatomic) CBCentralManager *centralManager;
 @property (nonatomic) CBPeripheralManager *peripheralManager;
 
-@property (nonatomic) CBUUID *serviceUUID;;
+@property (nonatomic) CBUUID *serviceUUID;
 @property (nonatomic) CBUUID *locationCharacteristicUUID;
 
+@property (nonatomic) CBService *service;
+@property (nonatomic) NSMutableOrderedSet<CBPeripheral *> *peripherals;
 @end
 
 @implementation BluetoothManager
@@ -46,6 +48,8 @@
 {
     self.serviceUUID = [CBUUID UUIDWithString:@"3CF044DF-24D7-4165-8E94-F9C9788A040D"];
     self.locationCharacteristicUUID = [CBUUID UUIDWithString:@"0316515B-FC60-4B0D-99BE-F72B243232FA"];
+    
+    self.peripherals = [[NSMutableOrderedSet alloc] init];
 
     [self setupCentral];
     [self setupPeripheral];
@@ -94,7 +98,55 @@
      advertisementData:(NSDictionary *)advertisementData
                   RSSI:(NSNumber *)RSSI
 {
-    [self.delegate updateRSSI:RSSI];
+    if (peripheral.services.count) {
+        [self.delegate updateRSSI:RSSI];
+    }
+    if (peripheral.state == CBPeripheralStateDisconnected) {
+        [self.peripherals addObject:peripheral];
+        [central connectPeripheral:peripheral options:nil];
+    }
+
+}
+
+- (void)centralManager:(CBCentralManager *)central
+  didConnectPeripheral:(CBPeripheral *)peripheral {
+    NSLog(@"Peripheral connected");
+    [peripheral discoverServices:@[self.serviceUUID]];
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral
+didDiscoverServices:(NSError *)error {
+    for (CBService *service in peripheral.services) {
+        [peripheral discoverCharacteristics:@[self.locationCharacteristicUUID] forService:service];
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral
+didDiscoverCharacteristicsForService:(CBService *)service
+             error:(NSError *)error {
+    
+    for (CBCharacteristic *characteristic in service.characteristics) {
+        [peripheral setNotifyValue:YES forCharacteristic:characteristic];
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral
+didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic
+             error:(NSError *)error {
+    
+    if (error) {
+        NSLog(@"Error changing notification state: %@",
+              [error localizedDescription]);
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral
+didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
+             error:(NSError *)error {
+    
+    NSData *data = characteristic.value;
+    NSLog(@"didUpdateNotificationStateForCharacteristic: %@", data);
+
 }
 
 /** If the connection fails for whatever reason, we need to deal with it.
@@ -141,6 +193,8 @@
                                       permissions:CBAttributePermissionsReadable];
     service.characteristics = @[locationCharacteristics];
     [self.peripheralManager addService:service];
+    
+    self.service = service;
 }
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral
